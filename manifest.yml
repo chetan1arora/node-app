@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: node-app
+  name: node-app
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: node-app
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: node-app
+    spec:
+      containers:
+      - image: node-app
+        name: node-app
+        imagePullPolicy: Never
+        resources: {}
+        ports:
+        - containerPort: 9999
+        - containerPort: 10101 
+status: {}
