@@ -41,7 +41,7 @@ func main(){
 	go myNode.ListenerLoop()
 
 	// Join Society
-	go myNode.JoinSociety()
+	// go myNode.JoinSociety()
 
 	// Main Purpose
 	for {

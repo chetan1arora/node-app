@@ -21,8 +21,16 @@ spec:
       - image: node-app
         name: node-app
         imagePullPolicy: Never
-        resources: {}
+        # resources: {}
         ports:
         - containerPort: 9999
-        - containerPort: 10101 
+        - containerPort: 10101
+        volumeMounts:
+        - mountPath: /files
+          name: files-volume
+      volumes:
+      - name: files-volume
+        emptyDir:
+          sizeLimit: "1Gi" 
+
 status: {}

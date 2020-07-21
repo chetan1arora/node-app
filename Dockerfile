@@ -16,9 +16,6 @@ COPY . .
 # Build the application
 RUN go build -o main .
 
-# Make directory
-RUN mkdir files
-
 # Export necessary port
 EXPOSE 9999 10101
 

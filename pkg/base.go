@@ -35,7 +35,7 @@ var (
 	DEVICE_BITS = 4
 	PORT = "9999"
 	INTERFACE_NAME = "eth0"
-	local="files/"
+	local="/files"
 	MULTICAST_IP = []byte{233,0,0,0}
 	MULTICAST_PORT = "10101"
 	DASHBOARD_ADDRESS = "http:///"
