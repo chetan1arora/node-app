@@ -242,7 +242,8 @@ func (node *Node) UploadFile(path string) error{
 		// Send to the multicast group
 		ip := MULTICAST_IP
 		ip[3] ^= byte(destId)
-		udpAddr,err := net.ResolveUDPAddr("udp",net.JoinHostPort(string(ip),PORT))
+		ip_addr := fmt.Sprintf("%v.%v.%v.%v",ip[0],ip[1],ip[2],ip[3])
+		udpAddr,err := net.ResolveUDPAddr("udp",net.JoinHostPort(ip_addr,PORT))
 		if err!= nil {
 			return err
 		}
@@ -498,7 +499,8 @@ func (node *Node) JoinSociety() {
 	}
 	ip := MULTICAST_IP
 	ip[3] ^= byte(node.id)
-	udpAddr,err := net.ResolveUDPAddr("udp",net.JoinHostPort(string(ip),MULTICAST_PORT))
+	ip_addr := fmt.Sprintf("%v.%v.%v.%v", ip[0],ip[1],ip[2],ip[3])
+	udpAddr,err := net.ResolveUDPAddr("udp",net.JoinHostPort(ip_addr,MULTICAST_PORT))
 	if err!= nil {
 		panic(err)
 	}

@@ -13,8 +13,11 @@ ENV CGO_ENABLED=0 \
 # Copy the code into the container
 COPY . .
 
-# Build the application
-RUN go build -o main .
+# Build main application
+RUN go build -o main main.go
+
+# Build Terminal application
+RUN go build -o term term.go
 
 # Export necessary port
 EXPOSE 9999 10101
