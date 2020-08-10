@@ -5,7 +5,57 @@ import(
 "syscall"
 "fmt"
 "os"
+"time"
+"math/rand"
+// 
 )
+// 
+/*
+	Main Node Application
+*/
+func main(){
+
+	// Timed Wake Up
+	timedWakeUp()
+
+	var myNode base.Node
+
+	// Initialize Node
+	myNode.CheckConnectivity()
+
+	// Discover Friends
+	myNode.DiscoverFriends()
+
+	// Start Listening
+	go myNode.ListenerLoop()
+
+	// Join Society
+	go myNode.JoinSociety()
+
+	// Wait for terminal
+	waitForTerminal()
+
+	// Client Functions
+	for {
+		showGreeting()
+		var op int
+		fmt.Scanln(&op)
+		switch op {
+		case 1: // Search feature
+			myNode.SearchProc()
+		case 2: // Upload feature
+			myNode.UploadProc()
+		case 3: // info feature
+			myNode.ShowInfo()
+		case 4: // Graceful Exit
+			// myNode.GracefulExit()
+			break
+		}
+	}
+	return
+}
+
+
 
 /*
  Greeting
@@ -27,6 +77,7 @@ func showGreeting(){
 	fmt.Println("[4] Graceful Exit")
 	return
 }
+
 /*
  Handle Error
 */
@@ -68,42 +119,16 @@ func waitForTerminal(){
 }
 
 /*
-	Main Node Application
+ Timed wake up for simulation
 */
-func main(){
-	var myNode base.Node
 
-	// Initialize Node
-	myNode.CheckConnectivity()
-
-	// Discover Friends
-	myNode.DiscoverFriends()
-
-	// Start Listening
-	go myNode.ListenerLoop()
-
-	// Join Society
-	go myNode.JoinSociety()
-
-	// Wait for terminal
-	waitForTerminal()
-
-	// Client Functions
-	for {
-		showGreeting()
-		var op int
-		fmt.Scanln(&op)
-		switch op {
-		case 1: // Search feature
-			myNode.SearchProc()
-		case 2: // Upload feature
-			myNode.UploadProc()
-		case 3: // info feature
-			myNode.ShowInfo()
-		case 4: // Graceful Exit
-			// myNode.GracefulExit()
-			break
-		}
-	}
+func timedWakeUp(){
+	timeNow := time.Now().UnixNano()
+	seed := rand.NewSource(timeNow)
+	r := rand.New(seed)
+	maxInterval := 70 // Second
+	interval := 1000*1000*1000*time.Duration(r.Intn(maxInterval))
+	fmt.Printf("Going to sleep:%v\n",interval)
+	time.Sleep(interval)
 	return
 }
